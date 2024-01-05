@@ -1,0 +1,247 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.0'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	//slf4j와 logging을 같이 쓸 수 없음
+	all {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+}
+
+repositories {
+	maven { url "https://maven.egovframe.go.kr/maven/" }
+	mavenCentral()
+}
+
+dependencies {
+
+	implementation(group: 'org.egovframe.rte', name: 'org.egovframe.rte.ptl.mvc', version:'4.1.0') {
+		exclude(module: 'commons-logging')
+//		exclude(module: 'spring-modules-validation')
+	}
+
+	//실행환경 라이브러리
+	implementation group: 'org.egovframe.rte', name: 'org.egovframe.rte.fdl.idgnr', version:'4.1.0'
+	implementation group: 'org.egovframe.rte', name: 'org.egovframe.rte.fdl.property', version:'4.1.0'
+	implementation group: 'org.egovframe.rte', name: 'org.egovframe.rte.fdl.security', version:'4.1.0'
+	implementation group: 'org.egovframe.rte', name: 'org.egovframe.rte.fdl.excel', version:'4.1.0'
+	implementation group: 'org.egovframe.rte', name: 'org.egovframe.rte.bat.core', version:'4.1.0'
+	implementation group: 'org.egovframe.rte', name: 'org.egovframe.rte.fdl.crypto', version:'4.1.0'
+	implementation group: 'org.egovframe.rte', name: 'org.egovframe.rte.fdl.access', version:'4.1.0'
+
+	implementation group: 'com.googlecode.log4jdbc', name: 'log4jdbc', version: '1.2'
+	implementation group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.9.0'
+	implementation group: 'javax.servlet.jsp.jstl', name: 'jstl-api', version: '1.2'
+	implementation group: 'taglibs', name: 'standard', version: '1.1.2'
+	// Provided Scope: Uncomment below line if you want to mark it as 'provided'
+	// implementation group: 'javax.servlet', name: 'servlet-api', version: '2.5', scope: 'provided'
+	implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+	implementation group: 'org.jasypt', name: 'jasypt', version: '1.9.3'
+	implementation group: 'cglib', name: 'cglib', version: '3.3.0'
+	implementation group: 'org.apache.commons', name: 'commons-compress', version: '1.21'
+	implementation group: 'xerces', name: 'xercesImpl', version: '2.12.2'
+
+	//cache
+	implementation('net.sf.ehcache:ehcache-core:2.6.9')
+			{
+		exclude group: 'org.slf4j', module: 'slf4j-api'
+	}
+	implementation group: 'net.sf.ehcache', name: 'ehcache', version: '2.9.0'
+
+	//scheduleing
+	implementation('org.quartz-scheduler:quartz:2.3.2')
+			{
+		exclude group: 'org.slf4j', module: 'slf4j-api'
+	}
+	implementation 'org.quartz-scheduler:quartz-jobs:2.3.2'
+
+//	implementation group: 'org.springmodules', name: 'spring-modules-validation', version:'0.9'
+	implementation group: 'javax.servlet', name: 'jstl', version:'1.2'
+	implementation group: 'taglibs', name: 'standard', version:'1.1.2'
+	implementation group: 'org.antlr', name: 'antlr', version:'3.5'
+	implementation group: 'org.hsqldb', name: 'hsqldb', version:'2.5.0'
+	implementation group: 'javax.servlet', name: 'javax.servlet-api', version:'3.1.0'
+
+	implementation 'org.springframework:spring-webmvc:5.3.20'
+	implementation 'org.mybatis:mybatis:3.1.1'
+	implementation 'org.apache.commons:commons-dbcp2:2.9.0'
+	implementation 'javax.servlet.jsp.jstl:jstl-api:1.2'
+	implementation 'taglibs:standard:1.1.2'
+	implementation 'javax.servlet:javax.servlet-api:3.1.0'
+	implementation 'org.jasypt:jasypt:1.9.3'
+	implementation 'cglib:cglib:3.3.0'
+	implementation 'org.apache.commons:commons-compress:1.21'
+	implementation 'xerces:xercesImpl:2.12.2'
+
+	//springboot
+	implementation platform('org.springframework.boot:spring-boot-dependencies:2.7.0')
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation('org.springframework.boot:spring-boot-starter-web') {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+
+
+	// test
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'javax.inject:javax.inject:1'
+	testImplementation 'javax.annotation:javax.annotation-api:1.3.2'
+	testImplementation 'junit:junit:4.13.2'
+
+	// MySQL Connector/J
+	implementation 'mysql:mysql-connector-java:8.0.29'
+
+// MariaDB Java Client
+	implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.4'
+
+// PostgreSQL JDBC Driver
+	implementation 'org.postgresql:postgresql:42.3.6'
+
+// Lombok
+	compileOnly 'org.projectlombok:lombok:1.18.24'
+	annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+// JavaParser
+	implementation 'com.github.javaparser:javaparser-core:3.22.1'
+
+	implementation 'org.apache.commons:commons-dbcp2:2.9.0'
+	implementation 'javax.servlet.jsp.jstl:jstl-api:1.2'
+	implementation 'taglibs:standard:1.1.2'
+	implementation 'javax.servlet:javax.servlet-api:3.1.0'
+	implementation 'org.jasypt:jasypt:1.9.3'
+	implementation 'cglib:cglib:3.3.0'
+	implementation 'org.apache.commons:commons-compress:1.21'
+	implementation 'xerces:xercesImpl:2.12.2'
+	implementation 'org.quartz-scheduler:quartz:2.3.2'
+	implementation 'org.quartz-scheduler:quartz-jobs:2.3.2'
+	implementation group: 'commons-io', name: 'commons-io', version: '2.9.0'
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
+	implementation 'commons-lang:commons-lang:2.6'
+
+	// Validation 에서 사용 antlr.TokenStream
+	implementation 'org.antlr:antlr:3.5'
+
+	// 우편번호를 위한 라이브러리
+	implementation 'oro:oro:2.0.8'
+
+	// 요소기술 달력을 위한 라이브러리
+	implementation 'com.ibm.icu:icu4j:71.1'
+
+	// FTP용 3rd party 라이브러리
+	implementation 'commons-net:commons-net:3.8.0'
+
+	// Email
+	implementation 'org.apache.commons:commons-email:1.5'
+	implementation 'egovframework.com.ems:sndng-mail:1.0'
+
+	// Cross-Site Scripting
+	compileOnly 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.3'
+
+	// LDAP SDK
+	implementation 'ldapsdk:ldapsdk:4.1'
+
+	// PDF변환용 라이브러리
+	implementation('com.artofsolving:jodconverter:2.2.1') {
+		exclude group: 'org.slf4j', module: 'slf4j-api'
+		exclude group: 'commons-io', module: 'commons-io'
+	}
+	// fileupload
+	implementation('commons-fileupload:commons-fileupload:1.5') {
+		exclude group: 'commons-io', module: 'commons-io'
+	}
+	// Twitter
+	implementation 'org.twitter4j:twitter4j-core:4.0.7'
+
+	// Ajax
+	implementation 'net.sourceforge.ajaxtags:ajaxtags-resources:1.5.7'
+
+	// WYSIWYG Editor
+	implementation 'com.ckeditor:ckeditor-java-core:3.5.3'
+
+	// xmlParserAPI
+	implementation 'org.apache.xmlgraphics:batik-ext:1.14'
+
+	// facebook 연동시 추가
+	implementation('org.springframework.social:spring-social-facebook:2.0.3.RELEASE') {
+		exclude group: 'org.springframework', module: 'spring-web'
+		exclude group: 'org.springframework', module: 'spring-webmvc'
+	}
+
+	// oauth2 login
+	implementation 'com.github.scribejava:scribejava-apis:8.3.1'
+	implementation 'com.github.scribejava:scribejava-core:8.3.1'
+	implementation('org.apache.httpcomponents:httpclient:4.5.13') {
+		exclude group: 'commons-logging', module: 'commons-logging'
+	}
+	implementation 'com.h2database:h2:2.1.212'
+
+	// WebSocket Messenger
+	compileOnly 'javax.websocket:javax.websocket-api:1.1'
+	implementation 'org.glassfish:javax.json:1.1.4'
+
+	// ajax json
+	// social에서 참조 하고 있어 임시 주석 처리
+	implementation 'com.fasterxml.jackson.core:jackson-core:2.13.3'
+	implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.3'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+
+	// LDAP조직도관리 관련 라이브러리
+	implementation('org.springframework.ldap:spring-ldap-core:2.4.0') {
+		exclude group: 'org.springframework', module: 'spring-beans'
+		exclude group: 'org.springframework', module: 'spring-core'
+		exclude group: 'org.springframework', module: 'spring-tx'
+		exclude group: 'org.slf4j', module: 'slf4j-api'
+		exclude group: 'org.slf4j', module: 'jcl-over-slf4j'
+	}
+	implementation 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
+
+	// JavaParser
+	implementation 'com.github.javaparser:javaparser-core:3.22.1'
+	//egover 끝
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-freemarker'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+//	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+//	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+//	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.7.0'
+	implementation 'org.springframework.session:spring-session-jdbc'
+//	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	//도커가안된당... 나중에확인
+//	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+//	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test'
+//	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.7.0'
+	testImplementation 'org.springframework.security:spring-security-test'
+	// https://mvnrepository.com/artifact/com.google.code.gson/gson
+	implementation 'com.google.code.gson:gson:2.9.0'
+
+
+
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  tomcat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: test-tomcat
+    restart: always
+    ports:
+      - "8089:8080"
+    volumes:
+
+      - ./src/main/webapp/upload:/usr/local/tomcat/webapps/ROOT/upload
+      - ./logs:/app/logs # 로그 디렉토리를 마운트합니다.
+    environment:
+      SPRING_PROFILES_ACTIVE: "prod"
+      SPRING_DEVTOOLS_RESTART_ENABLED: "true"
+      SPRING_DEVTOOLS_LIVERELOAD_ENABLED: "true"

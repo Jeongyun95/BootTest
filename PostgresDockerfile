@@ -1,0 +1,13 @@
+# PostgreSQL 14 이미지를 기반으로 함
+FROM postgres:14
+ENV LC_ALL=C.UTF-8
+
+# PostgreSQL 설정 파일 수정
+# RUN echo "character_set_server = 'utf8'" >> /usr/share/postgresql/postgresql.conf
+# RUN echo "collation_server = 'utf8_general_ci'" >> /usr/share/postgresql/postgresql.conf
+
+# 컨테이너 내의 SQL 파일을 실행하도록 추가
+COPY ./dump /docker-entrypoint-initdb.d
+
+# 데이터베이스 컨테이너가 시작될 때 덤프 스크립트 실행을 위한 환경 변수 설정
+ENV POSTGRES_DB_DUMP_SCRIPT /docker-entrypoint-initdb.d/dump.sql
